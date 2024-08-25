@@ -5,7 +5,9 @@
   "main": "./src/index.ts",
   "scripts": {
     "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build":"node ./dist/index.js",
+    "e2e":"cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon"
+
   },
   "author": "Sanchay Jadon",
   "license": "ISC",
