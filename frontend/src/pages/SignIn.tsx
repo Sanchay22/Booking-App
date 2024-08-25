@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form"
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from '../api-client'
 import { useAppContext } from "../contexts/AppContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export type SignInFormData={
     email:string;
     password:string;
@@ -10,6 +10,7 @@ export type SignInFormData={
 const SignIn=()=>{
     const {showToast}=useAppContext();
     const navigate=useNavigate();
+    const queryClient=useQueryClient();
     const {
         register,
         formState:{errors},
@@ -18,6 +19,7 @@ const SignIn=()=>{
     const mutation=useMutation(apiClient.signIn,{
         onSuccess:async()=>{
             showToast({message:"Sign in successful!",type:"SUCCESS"});
+            await queryClient.invalidateQueries("validateToken");
             navigate("/");
         },onError:(error:Error)=>{
             showToast({message:error.message,type:"ERROR"});
@@ -51,8 +53,11 @@ const SignIn=()=>{
                         <span className="text-red-500">{errors.password.message}</span>
                     )}
             </label>
-            <span>
-                <button type="submit" className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl">Login</button>
+            <span className="flex items-center justify-between">
+                <span className="text-sm">
+                    Not Registered? <Link className="underline" to="/register"> Create an account here</Link>
+                </span>
+                <button type="submit" className="px-30 bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl">Login</button>
             </span>
         </form>
     )
