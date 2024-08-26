@@ -15,10 +15,10 @@ app.use(cors({
     origin:process.env.FRONTEND_URL,
     credentials:true,
 }));
-app.use(express.static(path.join(__dirname,"../../frontend/dist")))
+app.use(express.static(path.join(__dirname,"../../frontend/dist")));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 app.listen(7000,()=>{
-    console.log("Very good")
+    console.log("SERVER ON 7000");
 })
