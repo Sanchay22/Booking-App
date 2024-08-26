@@ -1,6 +1,5 @@
-/notes for revidsion.txt
+node_modules
 .env
 .env.e2e
-node_modules
 .vscode
 dist
