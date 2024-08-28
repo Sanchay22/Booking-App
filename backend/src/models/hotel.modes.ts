@@ -5,7 +5,7 @@ export type HotelType={
     name:string;
     city:string;
     country:string;
-    descrription:string;
+    description:string;
     type:string;
     adultCount:number;
     childCount:number;
@@ -28,7 +28,7 @@ const hotelSchema= new mongoose.Schema<HotelType>({
     },country:{
         type:String,
         required:true
-    },descrription:{
+    },description:{
         type:String,
         required:true
     },type:{
