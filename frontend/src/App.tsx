@@ -4,9 +4,10 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import AddHotel from "./pages/AddHotel";
 import { useAppContext } from "./contexts/AppContext";
+import MyHotels from "./pages/MyHotels";
 const App=()=>{
   const {isLoggedIn}=useAppContext();
-  return (<>
+  return (
   <Router>
       <Routes>
         <Route path="/" element={<Layout>
@@ -29,11 +30,17 @@ const App=()=>{
               <AddHotel />
             </Layout>
           } />
+          <Route path="/my-hotels" element={
+            <Layout>
+              <MyHotels />
+            </Layout>
+          } 
+          />
         </>}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
-  </>);
+    );
 };
 
-export default App
+export default App;
