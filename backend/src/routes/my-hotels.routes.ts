@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import multer from "multer";
 import cloudinary from "cloudinary"
-import Hotel, { HotelType } from "../models/hotel.modes";
+import Hotel, { HotelType } from "../models/hotel.models";
 import verifyToken from "../middleware/auth.middleware";
 import { body } from "express-validator";
 const router = express.Router();
