@@ -7,7 +7,7 @@ const GuestsSection=()=>{
         formState:{errors},
     }=useFormContext<HotelFormData>();
     return (
-        <div>
+        <div className="p-5">
             <h2 className="text-2xl font-bold mb-3">
                Guests 
             </h2>

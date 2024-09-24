@@ -6,7 +6,7 @@ const TypeSection=()=>{
     const {register,watch,formState:{errors}}=useFormContext<HotelFormData>();
     const typeWatch=watch("type");
     return (
-        <div>
+        <div className="p-5">
             <h2 className="text-2xl font-bold mb-3">Type</h2>
             <div className="grid grid-cols-5 gap-2">
                 {hotelTypes.map((type)=>(
