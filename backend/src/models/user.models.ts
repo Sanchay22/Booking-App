@@ -1,13 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
-import { Jwt } from "jsonwebtoken";
-export type UserTpe={
-    _id:string;
-    email:string;
-    password:string;
-    firstName:string;
-    lastName:string;
-};
+import { UserType } from "../shared/types";
 
 const userSchema=new mongoose.Schema({
     email:{
@@ -33,7 +26,7 @@ userSchema.pre("save",async function(next){
         this.password=await bcrypt.hash(this.password,8)
     }next();
 });
-const User=mongoose.model<UserTpe>("User",userSchema);
+const User=mongoose.model<UserType>("User",userSchema);
 export default User;
 
 

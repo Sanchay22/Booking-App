@@ -1,7 +1,78 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import {HotelSearchResponse, HotelType}  from '../../backend/src/shared/types';
+import {HotelSearchResponse, HotelType, PayPalOrderResponse, UserType}  from '../../backend/src/shared/types';
+import { BookingFormData } from "./forms/BookingForm/BookingForm";
 const API_BASE_URL=import.meta.env.VITE_API_BASE_URL||'';
+
+export const fetchCurrentUser=async():Promise<UserType>=>{
+    const response=await fetch(`${API_BASE_URL}/api/users/me`,{
+        credentials:"include"
+    })   
+    if(!response.ok){
+        throw new Error("Error fetching user");
+    }return response.json();
+
+}
+
+export const createRoomBooking = async (formData: BookingFormData) => {
+    const response = await fetch(
+      `${API_BASE_URL}/api/hotels/${formData.hotelId}/bookings`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+  
+    if (!response.ok) {
+      throw new Error("Error booking room");
+    }
+  
+    return response.json();
+  };
+  
+
+  export const capturePayPalOrder = async (orderId: string) => {
+    const response = await fetch(`${API_BASE_URL}/api/hotels/capture-order/${orderId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error('Error capturing PayPal order');
+    }
+  
+    return response.json(); 
+  };
+export const createPayPalOrder = async (
+    hotelId: string,
+    numberOfNights: string
+  ): Promise<PayPalOrderResponse> => {
+    const response = await fetch(
+      `${API_BASE_URL}/api/hotels/${hotelId}/bookings/create-order`,
+      {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({ numberOfNights }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  
+    if (!response.ok) {
+      throw new Error("Error creating PayPal order");
+    }
+  
+    return response.json(); // This should return { orderId, totalCost }
+  };
+  
+
 export const register=async(formData:RegisterFormData)=>{
     const response=await fetch(`${API_BASE_URL}/api/users/register`,{
         method:"POST",
